@@ -2,7 +2,7 @@
 
 let title = prompt('Как называется ваш проект ? ', '');
 let screen = prompt('Какие типы экранов нужно разработать? ', 'Простые, Сложные, Интерактивные');
-let screenPrice = +prompt('Сколько будет стоить данная работа?', '12000, 15000, 30000');
+let screenPrice = +prompt('Сколько будет стоить данная работа?', '12000');
 let adaptive = confirm('Нужен ли адаптив на сайте?');
 
 let service01 = prompt('Какой дополнительный тип услуги нужен?', '');
@@ -11,14 +11,12 @@ let servicePrice01 = +prompt('Сколько будет стоить данна�
 let service02 = prompt('Какой дополнительный тип услуги нужен?', '');
 let servicePrice02 = +prompt('Сколько будет стоить данная работа?');
 
-let managerInterest = 0.15;
+let rollback = 25;
 
-let fullPrice = screenPrice + servicePrice01 + servicePrice02;
-console.log('Стоимость: ' + fullPrice);
-let managerPrice = fullPrice * managerInterest;
-console.log('ЗП Манагера: ' + managerPrice);
-let servicePercentPrice = fullPrice - (fullPrice * managerInterest);
-console.log('Доход: ' + servicePercentPrice);
+let fullPrice = screenPrice + servicePrice01 + servicePrice02; //полная стоимость
+
+let servicePercentPrice = Math.ceil(fullPrice - (fullPrice / 100 * rollback)); //вычесть процент посредника
+
 
 if (fullPrice >= 30000) {
   fullPrice = fullPrice - (fullPrice * 0.1);
