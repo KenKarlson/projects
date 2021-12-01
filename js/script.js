@@ -1,19 +1,72 @@
 'use strict';
 // объявление переменных
-let title = prompt('Как называется ваш проект ? ', '');
-let screens = prompt('Какие типы экранов нужно разработать? ', 'Простые, Сложные, Интерактивные');
-let screenPrice = +prompt('Сколько будет стоить данная работа?', '12000');
-let adaptive = confirm('Нужен ли адаптив на сайте?');
-let service01 = prompt('Какой дополнительный тип услуги нужен?', '');
-let servicePrice01 = +prompt('Сколько будет стоить данная работа?');
-let service02 = prompt('Какой дополнительный тип услуги нужен?', '');
-let servicePrice02 = +prompt('Сколько будет стоить данная работа?');
+let title;
+let screens;
+let screenPrice;
+let adaptive;
+
+
 let rollback = 25; //Проценты 
-let fullPrice = 0; //Полная стоимость screenPrice + servicePrice01 + servicePrice02
-let servicePercentPrice = 0; //Сумма процентов
-let allServicePrices = 0; //сумма всех дополнительных услуг
+let fullPrice; //Полная стоимость screenPrice + servicePrice01 + servicePrice02
+let servicePercentPrice; //Сумма процентов
+let allServicePrices; //сумма всех дополнительных услуг
+
+let service01;
+let service02;
+
+
 
 // какой то функционал
+
+const isNumber = function (num) {
+  return !isNaN(parseFloat(num)) && isFinite(num);
+};
+//Вопросы
+const asking = function () {
+  title = prompt('Как называется ваш проект ? ', 'Калькулятор верстки');
+  screens = prompt('Какие типы экранов нужно разработать? ', 'Простые, Сложные, Интерактивные');
+
+  do {
+    screenPrice = prompt('Сколько будет стоить данная работа?');
+  }
+  while (!isNumber(screenPrice));
+
+  // while (!isNumber(screenPrice)) {
+  //   screenPrice = prompt('Сколько будет стоить данная работа?');
+  // }
+  adaptive = confirm('Нужен ли адаптив на сайте?');
+};
+
+
+//Узнать сумма доп услуг
+const getAllServicePrices = function () {
+  let sum = 1;
+  let sum1;
+  let sum2;
+  for (let i = 0; i < 2; i++) {
+    if (i == 0) {
+      service01 = prompt('Какой дополнительный тип услуги нужен?', 'Metric');
+      do {
+        sum1 = prompt('Сколько будет стоить данная работа?');
+        sum--;
+        sum += sum1;
+      }
+      while (!isNumber(sum1));
+
+    } else if (i == 1) {
+      service02 = prompt('Какой дополнительный тип услуги нужен?', 'Send form');
+      do {
+        sum2 = prompt('Сколько будет стоить данная работа?');
+        sum++;
+        sum += sum2 - 1;
+      }
+      while (!isNumber(sum2));
+    }
+
+  }
+  return sum;
+};
+
 // Title
 const getTitle = function (elem) {
   let temp;
@@ -28,10 +81,7 @@ const getTitle = function (elem) {
 const showTypeOf = function (variable) {
   console.log(variable, typeof variable);
 };
-//Узнать сумма доп услуг
-const getAllServicePrices = function () {
-  return servicePrice01 + servicePrice02;
-};
+
 // Предоставляемая скидка
 const getRollbackMessage = function (price) {
   if (price >= 30000) {
@@ -62,25 +112,26 @@ const getAllScreens = function (elem) {
 };
 //Узнать полную стоимость
 function getFullPrice() {
-  return screenPrice + allServicePrices;
+  return +screenPrice + allServicePrices;
 }
 
 
 // вывод данных
+asking();
+console.log(screenPrice);
 allServicePrices = getAllServicePrices();
-console.log('Стоимость доп услуг: ' + allServicePrices);
 fullPrice = getFullPrice();
-console.log('Полная стоимость: ' + fullPrice);
 servicePercentPrice = getServicePercentPrices();
-console.log('Сумма Итого: ' + servicePercentPrice);
-console.log('Какие экраны нужно: ' + getAllScreens(screens));
-
-
-
-console.log(getTitle(title));
-console.log('Стоимость верстки экранов ' + screenPrice + ' рублей.');
-console.log(getRollbackMessage(fullPrice));
+title = getTitle(title);
 
 showTypeOf(title);
 showTypeOf(screenPrice);
 showTypeOf(adaptive);
+
+console.log('Название проекта: ' + title);
+console.log('Какие экраны нужно: ' + getAllScreens(screens));
+console.log('Стоимость верстки экранов ' + screenPrice + ' рублей.');
+console.log('Стоимость доп услуг: ' + allServicePrices);
+console.log(getRollbackMessage(fullPrice));
+console.log('Полная стоимость: ' + fullPrice);
+console.log('Сумма Итого: ' + servicePercentPrice);
