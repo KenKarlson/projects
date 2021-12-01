@@ -29,8 +29,8 @@ const showTypeOf = function (variable) {
   console.log(variable, typeof variable);
 };
 //Узнать сумма доп услуг
-const getAllServicePrices = function (price1, price2) {
-  return price1 + price2;
+const getAllServicePrices = function () {
+  return servicePrice01 + servicePrice02;
 };
 // Предоставляемая скидка
 const getRollbackMessage = function (price) {
@@ -49,31 +49,30 @@ const getRollbackMessage = function (price) {
 
 };
 
-const getServicePercentPrices = function (elem1, elem2) {
-  return (elem1 * (elem2 / 100));
+const getServicePercentPrices = function () {
+  return Math.ceil(fullPrice - (fullPrice * (rollback / 100)));
 };
 //Разбить типы экранов на массив
 const getAllScreens = function (elem) {
   let temp = [];
   if (elem) {
     temp = elem.split(' ');
-    console.log('test elem');
   }
   return temp;
 };
 //Узнать полную стоимость
-function getFullPrice(price1, price2) {
-  return price1 + price2;
+function getFullPrice() {
+  return screenPrice + allServicePrices;
 }
 
 
 // вывод данных
-allServicePrices = getAllServicePrices(servicePrice01, servicePrice02);
-console.log('Все доп услуги: ' + allServicePrices);
-fullPrice = getFullPrice(screenPrice, allServicePrices);
+allServicePrices = getAllServicePrices();
+console.log('Стоимость доп услуг: ' + allServicePrices);
+fullPrice = getFullPrice();
 console.log('Полная стоимость: ' + fullPrice);
-servicePercentPrice = getServicePercentPrices(fullPrice, rollback);
-console.log('Сумма отката: ' + servicePercentPrice);
+servicePercentPrice = getServicePercentPrices();
+console.log('Сумма Итого: ' + servicePercentPrice);
 console.log('Какие экраны нужно: ' + getAllScreens(screens));
 
 
