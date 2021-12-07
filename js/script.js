@@ -75,7 +75,7 @@ const appData = {
     return !isNaN(parseFloat(num)) && isFinite(num);
   },
   isString: function (str) {
-    return !isNaN(str);
+    return !isNaN(parseFloat(str));
   },
   getTitle: function (elem) {
     let temp;
