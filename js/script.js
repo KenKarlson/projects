@@ -2,58 +2,80 @@
 
 const appData = {
   title: '',
-  screens: '',
+  screens: [],
   screenPrice: 0,
   adaptive: true,
-  rollback: 25,
+  rollback: 10,
   fullPrice: 0,
   servicePercentPrice: 0,
   allServicePrices: 0,
-  service01: '',
-  service02: '',
+  services: {},
 
   start: function () {
     appData.asking();
-    appData.allServicePrices = appData.getAllServicePrices();
-    appData.fullPrice = appData.getFullPrice();
-    appData.servicePercentPrice = appData.getServicePercentPrices();
-    appData.title = appData.getTitle(appData.title);
-
+    appData.getAllServicePrices();
+    appData.getFullPrice();
+    appData.getServicePercentPrices();
+    appData.getTitle(appData.title);
 
     appData.logger();
-
   },
 
   asking: function () {
-    appData.title = prompt('Как называется ваш проект ? ', 'Калькулятор верстки');
-    appData.screens = prompt('Какие типы экранов нужно разработать? ', 'Простые, Сложные, Интерактивные');
-
     do {
-      appData.screenPrice = prompt('Сколько будет стоить данная работа?');
+      appData.title = prompt('Как называется ваш проект ?');
     }
-    while (!appData.isNumber(appData.screenPrice));
-    appData.adaptive = confirm('Нужен ли адаптив на сайте?');
-  },
-  getAllServicePrices: function () {
-    let sum = 0;
+    while (appData.isString(appData.title));
+
+
     for (let i = 0; i < 2; i++) {
-      let price = 0;
-      if (i === 0) {
-        appData.service01 = prompt('Какой дополнительный тип услуги нужен?', 'Metric');
-      } else if (i === 1) {
-        appData.service02 = prompt('Какой дополнительный тип услуги нужен?', 'Send form');
+      let name;
+      do {
+        name = prompt('Какие типы экранов нужно разработать? ');
       }
+      while (appData.isString(name));
+      let price = 0;
       do {
         price = prompt('Сколько будет стоить данная работа?');
       }
-      while (!appData.isNumber(price.trim()));
-      sum += Number.parseInt(price);
+      while (!appData.isNumber(price));
+      appData.screens.push({
+        id: i,
+        name: name + i,
+        price: price
+      });
 
     }
-    return sum;
+    for (let i = 0; i < 2; i++) {
+      let name;
+      let price = 0;
+
+      do {
+        name = prompt('Какой дополнительный тип услуги нужен?');
+      }
+      while (appData.isString(name));
+
+      do {
+        price = prompt('Сколько будет стоить данная работа?');
+      }
+      while (!appData.isNumber(price));
+      appData.services[name + i] = +price;
+    }
+    appData.adaptive = confirm('Нужен ли адаптив на сайте?');
+  },
+  getAllServicePrices: function () {
+
+
+
+    for (let key in appData.services) {
+      appData.allServicePrices += appData.services[key];
+    }
   },
   isNumber: function (num) {
     return !isNaN(parseFloat(num)) && isFinite(num);
+  },
+  isString: function (str) {
+    return !isNaN(str);
   },
   getTitle: function (elem) {
     let temp;
@@ -62,7 +84,7 @@ const appData = {
     } else {
       temp = 'Новый проект';
     }
-    return temp;
+    appData.title = temp;
   },
   getRollbackMessage: function (price) {
     let temp;
@@ -78,7 +100,7 @@ const appData = {
     return temp;
   },
   getServicePercentPrices: function () {
-    return Math.ceil(appData.fullPrice - (appData.fullPrice * (appData.rollback / 100)));
+    appData.servicePercentPrice = Math.ceil(appData.fullPrice - (appData.fullPrice * (appData.rollback / 100)));
   },
   getAllScreens: function (elem) {
     let temp = [];
@@ -88,15 +110,15 @@ const appData = {
     return temp;
   },
   getFullPrice: function () {
-    return +appData.screenPrice + appData.allServicePrices;
+    appData.screenPrice = appData.screens.reduce((s, i) => s = s + Number.parseInt(i.price), 0);
+
+    appData.fullPrice = Number.parseInt(appData.screenPrice) + Number.parseInt(appData.allServicePrices);
   },
   logger: function () {
     console.log(appData.fullPrice);
     console.log(appData.servicePercentPrice);
-
-    for (let key in appData) {
-      console.log('Key: ' + key + ' Value: ' + appData[key]);
-    }
+    console.log(appData.screens);
+    console.log(appData.services);
     console.log('Finish');
   }
 };
