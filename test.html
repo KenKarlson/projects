@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="./css/index.css">
+  <script src="./js/test.js" defer></script>
+</head>
+
+<body>
+  <header>
+    <div class="container">
+      <h1 class="title" id="title">Калькулятор верстки</h1>
+    </div>
+  </header>
+
+  <div class="main-controls__views element">
+    <h3>Расчет по типу экрана</h3>
+    <div class="main-controls__item screen">
+      <div class="main-controls__select">
+        <select name="views-select">
+          <option value="" selected>Тип экранов</option>
+          <option value="500">Простых 500руб * n</option>
+          <option value="700">Сложных 700руб * n</option>
+          <option value="800">Интерактивных 800руб * n</option>
+          <option value="100">Форм 100руб * n</option>
+          <option value="300">Слайдеров 300руб * n</option>
+          <option value="200">Модальные окна 200руб * n</option>
+          <option value="100">Анимация в блоках 100руб * n</option>
+        </select>
+      </div>
+      <div class="main-controls__input">
+        <input type="text" placeholder="Количество экранов">
+      </div>
+    </div>
+
+    <button class="screen-btn">+</button>
+  </div>
+
+  <div class="main-controls__views element">
+    <h3>Откат посреднику</h3>
+    <div class="main-controls__item rollback">
+      <div class="main-controls__range">
+        <input type="range" step="1" min="0" max="100" value="0">
+        <span class="range-value">0%</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="main-total">
+    <div class="main-total__items">
+      <h3>Итого</h3>
+      <div class="main-total__item">
+        <label for="total">Стоимость верстки</label>
+        <input class="total-input" type="text" disabled id="total" value="0">
+      </div>
+      <div class="main-total__item">
+        <label for="total-count">Количество экранов</label>
+        <input class="total-input" type="text" disabled id="total-count" value="0">
+      </div>
+      <div class="main-total__item">
+        <label for="total-count-other">Стоимость доп. услуг</label>
+        <input class="total-input" type="text" disabled id="total-count-other" value="0">
+      </div>
+      <div class="main-total__item">
+        <label for="total-full-count">Итоговая стоимость</label>
+        <input class="total-input" type="text" disabled id="total-full-count" value="0">
+      </div>
+      <div class="main-total__item">
+        <label for="total-count-rollback">Стоимость с учетом отката</label>
+        <input class="total-input" type="text" disabled id="total-count-rollback" value="0">
+      </div>
+    </div>
+
+    <div class="main-total__buttons">
+      <button class="handler_btn" id="start">Рассчитать</button>
+      <button class="handler_btn" id="reset" style="display: none;">Сброс</button>
+    </div>
+  </div>
+</body>
+
+</html>
