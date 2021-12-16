@@ -64,9 +64,6 @@ const appData = {
     appData.adaptive = confirm('Нужен ли адаптив на сайте?');
   },
   getAllServicePrices: function () {
-
-
-
     for (let key in appData.services) {
       appData.allServicePrices += appData.services[key];
     }
