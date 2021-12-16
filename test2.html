@@ -1,0 +1,36 @@
+<html>
+
+<head>
+  <title>Untitled Document</title>
+  <meta http-equiv='Content-Type' content='text/html; charset=window-1251'>
+  <script>
+    function Check(obj) {
+      if (obj == 'true') {
+        document.all.btn.disabled = true
+      } else {
+        document.all.btn.disabled = false
+      };
+    }
+  </script>
+</head>
+
+<body>
+
+  <form name='f2'>
+    <select name='Map' onChange='Check(this.value)'>
+      <option value='true'>Быстрый переход к разделам:
+      <option value='false'>Газета
+      <option value='false'>Статистика
+      <option value='true'>Цены
+      <option value='false'>Наши представители
+      <option value='false'>Примеры рекламы
+      <option value='false'>Бюро заказов
+    </select>
+    <INPUT type='submit' value='Отправить' id='btn'>
+  </form>
+</body>
+<script>
+  Check('true');
+</script>
+
+</html>
