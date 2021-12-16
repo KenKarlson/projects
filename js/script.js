@@ -53,7 +53,6 @@ const appData = {
   addTitle: function () {
     document.title = title.textContent;
   },
-
   checkValues: function () {
     appData.isError = false;
     screens = document.querySelectorAll('.screen');
